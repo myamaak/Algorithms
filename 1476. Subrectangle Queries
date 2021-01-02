@@ -1,0 +1,19 @@
+class SubrectangleQueries:
+
+    def __init__(self, rectangle: List[List[int]]):
+        self.r =rectangle
+
+    def updateSubrectangle(self, row1: int, col1: int, row2: int, col2: int, newValue: int) -> None:
+        change_r = row2-row1+1
+        change_c = col2-col1+1
+        
+        for i in range(change_r):
+            for j in range(change_c):
+                self.r[row1+i][col1+j] = newValue
+                
+    def getValue(self, row: int, col: int) -> int:
+        value = self.r[row][col]
+        return value
+        
+        
+#link to problem : https://leetcode.com/problems/subrectangle-queries/
