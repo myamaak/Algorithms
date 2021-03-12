@@ -9,3 +9,13 @@ def getSubsum(data) :
     return max_value
 
 #divide-and-conquer
+
+
+#dynamic programming
+def getSubsum(data) :
+
+    dp = [i for i in data]
+    for i in range(1, len(data)):
+        dp[i] = max(dp[i-1] + data[i], data[i])
+    
+    return max(dp)
