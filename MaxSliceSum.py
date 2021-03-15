@@ -56,7 +56,6 @@ def getSubsum(data) :
 # def getSubsum(data) :
 #     dp =[]
 #     n = len(data)
-    
 #     for i in range(n):
 #         max_sum = 0
 #         for j in range(i,n+1):
