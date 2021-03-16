@@ -1,49 +1,25 @@
 def solution(number, k):
     answer = ''
-    max_num = '-1'
-    max_ind = 0
-    for i in range(k):
-        if max_num < number[i]:
-            max_num = number[i]
-            max_ind = i
-    
+
     stack = []
-    left_num = len(number) -k -1
-    for i in range(max_ind+1,len(number)):
-        # print(stack, number[i], len(number)-i-1, left_num)
-        if not stack:
-            stack.append(number[i])
-            left_num-=1
-        else:
-            if len(number)-i-1 >= left_num:
-                before = stack.pop()
-                if before < number[i]:
-                    stack.append(number[i])
-                else:
-                    stack.append(before)
-            #테스트 케이스 3번을 위한 코드였는데 잘 안됐다. 이하 코드를 실행하려면
-            #if len(number)-i-1 > left_num: 로 두어야 한다
-            #위의 코드임...
-            # elif len(number)-i-1 == left_num:
-            #     if i+1<= len(number)-1:
-            #         if number[i] > number[i+1]:
-            #             stack.append(number[i])
-            #             left_num-=1
-            #         else:
-            #             before = stack.pop()
-            #             if before < number[i]:
-            #                 stack.append(number[i])
-            #             else:
-            #                 stack.append(before) 
-            #     else:
-            #         before = stack.pop()
-            #         if before < number[i]:
-            #             stack.append(number[i])
-            #         else:
-            #             stack.append(before)      
-            else:
-                stack.append(number[i])
-                left_num-=1
+    
+    for (ind, num) in enumerate(number):
         
-    answer = max_num+ ''.join(stack)
+        while stack and k>0 and stack[-1] < num:
+            stack.pop() #더 작은 숫자는 스택에서 빼버린다
+            k-=1 #뺄 수 있는 숫자를 -1 
+            
+        if k == 0 : #굳이 해당 조건을 넣어주지 않아도 되지만 더 계산이 빨라진다.
+            stack+=number[ind:]
+            break
+            
+        stack.append(num)
+    
+    if k>0: #제거할 수가 아직 남은 경우 #스택에 담긴 수가 비교되는 수보다 같거나 큰 경우
+        stack = stack[:-k] 
+        #순차적으로 큰 값이 담겨있을 경우에만 해당 조건문이 성립하므로 
+        #앞에서부터 n개의 숫자로 잘라도 된다.
+        
+        
+    answer = ''.join(stack)
     return answer
